@@ -2,6 +2,7 @@ package com.github.aradxxx.ciceronescreen
 
 import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 
 object ExternalApp {
@@ -74,6 +75,21 @@ object ExternalApp {
             intent
         } else {
             Intent.createChooser(intent, chooserTitle)
+        }
+    }
+
+    /**
+     * Screen of application settings.
+     *
+     * @param action Settings action.
+     *
+     * @return [ActivityScreen] with [action] and packageName info.
+     */
+    fun settings(
+        action: String = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+    ) = ActivityScreen { context ->
+        Intent(action).apply {
+            data = Uri.fromParts("package", context.packageName, null)
         }
     }
 }
